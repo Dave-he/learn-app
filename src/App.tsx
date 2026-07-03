@@ -1,40 +1,15 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuthStore } from './store/authStore';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Courses from './pages/Courses';
-import CourseDetail from './pages/CourseDetail';
-import Vocabulary from './pages/Vocabulary';
+import LearningPath from './pages/LearningPath';
 import Grammar from './pages/Grammar';
-import Speaking from './pages/Speaking';
-import Listening from './pages/Listening';
-import Progress from './pages/Progress';
-import Community from './pages/Community';
-import Achievements from './pages/Achievements';
-import Profile from './pages/Profile';
-
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <>{children}</>;
-}
-
-function PublicRoute({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  return <>{children}</>;
-}
+import Corpus from './pages/Corpus';
+import Exams from './pages/Exams';
+import Articles from './pages/Articles';
+import Search from './pages/Search';
+import Forum from './pages/Forum';
+import Resources from './pages/Resources';
+import Reader from './pages/Reader';
 
 function App() {
   return (
@@ -42,110 +17,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route
-            path="login"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="register"
-            element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="courses"
-            element={
-              <ProtectedRoute>
-                <Courses />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="courses/:id"
-            element={
-              <ProtectedRoute>
-                <CourseDetail />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="learn/vocabulary"
-            element={
-              <ProtectedRoute>
-                <Vocabulary />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="learn/grammar"
-            element={
-              <ProtectedRoute>
-                <Grammar />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="learn/speaking"
-            element={
-              <ProtectedRoute>
-                <Speaking />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="learn/listening"
-            element={
-              <ProtectedRoute>
-                <Listening />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="progress"
-            element={
-              <ProtectedRoute>
-                <Progress />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="community"
-            element={
-              <ProtectedRoute>
-                <Community />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="achievements"
-            element={
-              <ProtectedRoute>
-                <Achievements />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="path" element={<LearningPath />} />
+          <Route path="path/:lang" element={<LearningPath />} />
+          <Route path="grammar" element={<Grammar />} />
+          <Route path="corpus" element={<Corpus />} />
+          <Route path="exams" element={<Exams />} />
+          <Route path="articles" element={<Articles />} />
+          <Route path="search" element={<Search />} />
+          <Route path="forum" element={<Forum />} />
+          <Route path="forum/partners" element={<Forum />} />
+          <Route path="resources" element={<Resources />} />
+          <Route path="reader/:id" element={<Reader />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -37,7 +37,7 @@ interface RegisterData {
   targetLanguage: 'english' | 'japanese' | 'korean';
 }
 
-const mockUsers: User[] = [
+const mockUsers: MockUser[] = [
   {
     id: '1',
     email: 'demo@lingualearn.com',
@@ -51,7 +51,7 @@ const mockUsers: User[] = [
     longestStreak: 14,
     createdAt: '2024-01-15',
     lastLogin: '2024-01-22',
-  } as any,
+  },
 ];
 
 export const useAuthStore = create<AuthState>()(
@@ -64,7 +64,7 @@ export const useAuthStore = create<AuthState>()(
       login: async (email: string, password: string) => {
         await new Promise((resolve) => setTimeout(resolve, 500));
 
-        const user = mockUsers.find((u) => u.email === email && (u as any).password === password);
+        const user = mockUsers.find((u) => u.email === email && u.password === password);
         if (user) {
           const { password: _, ...userWithoutPassword } = user;
           const token = btoa(`${user.id}:${Date.now()}`);
